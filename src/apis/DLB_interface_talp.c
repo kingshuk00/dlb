@@ -40,10 +40,12 @@
 int DLB_TALP_Attach(void) {
     char shm_key[MAX_OPTION_LENGTH];
     options_parse_entry("--shm-key", &shm_key);
-    shmem_cpuinfo_ext__init(shm_key);
-    shmem_procinfo_ext__init(shm_key);
-    shmem_talp_ext__init(shm_key, 0);
-    return DLB_SUCCESS;
+    int ret= shmem_talp_ext__init(shm_key, 0);
+    if(ret== DLB_SUCCESS) {
+      shmem_cpuinfo_ext__init(shm_key);
+      shmem_procinfo_ext__init(shm_key);
+    }
+    return ret;
 }
 
 int DLB_TALP_Detach(void) {

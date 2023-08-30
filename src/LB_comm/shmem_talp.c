@@ -165,6 +165,7 @@ int shmem_talp__init(const char *shmem_key, int regions_per_process) {
 }
 
 int shmem_talp_ext__init(const char *shmem_key, int regions_per_process) {
+    if (!shmem_exists(shmem_name, shmem_key)) return DLB_ERR_NOSHMEM;
     // Shared memory creation
     open_shmem(shmem_key, regions_per_process);
 
